@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0e14;
+  --color-foreground: #f1f3fc;
+  
+  --color-surface: #0a0e14;
+  --color-surface-container: #151a21;
+  --color-surface-container-low: #0f141a;
+  --color-surface-container-highest: #20262f;
+  --color-surface-bright: #262c36;
+  
+  --color-primary: #5eb4ff;
+  --color-primary-container: #2aa7ff;
+  --color-primary-dim: #15a4ff;
+  --color-primary-fixed-dim: #0099f0;
+  
+  --color-secondary: #599ffb;
+  --color-tertiary: #ac89ff;
+  --color-tertiary-container: #7000ff;
+  
+  --color-outline-variant: #44484f;
+
+  --font-sans: var(--font-inter), sans-serif;
+  --font-display: var(--font-space-grotesk), sans-serif;
+}
+
+/* Global resets for the Sovereign interface */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The Ghost Border utility class */
+@layer utilities {
+  .ghost-border {
+    border: 1px solid color-mix(in srgb, var(--color-outline-variant) 15%, transparent);
+  }
+  
+  .glow-trace {
+    border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+    box-shadow: 0 0 4px 0 var(--color-primary);
+  }
+
+  .glass-panel {
+    background-color: color-mix(in srgb, var(--color-surface-container) 70%, transparent);
+    backdrop-filter: blur(12px);
+  }
+  
+  .glass-gradient {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-container) 100%);
+  }
+
+  .ambient-shadow {
+    box-shadow: 0 0 100px 0 color-mix(in srgb, var(--color-primary) 5%, transparent);
+  }
+}
+
+/* Force 0px border radius everywhere */
+* {
+  border-radius: 0px !important;
+}

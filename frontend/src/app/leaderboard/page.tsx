@@ -33,7 +33,7 @@ export default function Leaderboard() {
            
            {/* Rank 2 */}
            <DataPanel variant="high" className="w-full max-w-xs flex flex-col items-center p-6 border-t-2 border-[var(--color-secondary)] h-48 justify-end">
-              <RankIndicator rank="S" className="mb-4 scale-75 opacity-80" />
+              <RankIndicator rank="E" className="mb-4 scale-75 opacity-80" />
               <h3 className="font-display uppercase tracking-widest text-lg text-[var(--color-foreground)]">0x91...B34</h3>
               <p className="font-mono text-xs text-[var(--color-secondary)]">Floor 99</p>
               <div className="absolute top-2 left-2 text-4xl font-display font-bold text-[var(--color-surface-container-highest)]">2</div>
@@ -41,7 +41,7 @@ export default function Leaderboard() {
            
            {/* Rank 1 */}
            <DataPanel variant="base" glowing className="w-full max-w-sm flex flex-col items-center p-8 border-t-4 border-[var(--color-tertiary)] h-64 justify-end shadow-[0_-20px_50px_var(--color-tertiary)]/10">
-              <RankIndicator rank="S" className="mb-6 scale-125" />
+              <RankIndicator rank="E" className="mb-6 scale-125" />
               <h3 className="font-display uppercase tracking-widest text-2xl text-[var(--color-tertiary)] drop-shadow-[0_0_8px_var(--color-tertiary)]">0x34...A12</h3>
               <p className="font-mono text-sm text-[var(--color-tertiary-dim)] mb-2">Floor 100 [CLEARED]</p>
               <div className="absolute top-2 left-2 text-6xl font-display font-bold text-[var(--color-surface-container)]">1</div>
@@ -49,7 +49,7 @@ export default function Leaderboard() {
 
            {/* Rank 3 */}
            <DataPanel variant="high" className="w-full max-w-xs flex flex-col items-center p-6 border-t-2 border-[var(--color-secondary)] h-40 justify-end">
-              <RankIndicator rank="A" className="mb-4 scale-75 opacity-80" />
+              <RankIndicator rank="F" className="mb-4 scale-75 opacity-80" />
               <h3 className="font-display uppercase tracking-widest text-lg text-[var(--color-foreground)]">0xAA...112</h3>
               <p className="font-mono text-xs text-[var(--color-secondary)]">Floor 95</p>
               <div className="absolute top-2 left-2 text-4xl font-display font-bold text-[var(--color-surface-container-highest)]">3</div>
@@ -74,11 +74,11 @@ export default function Leaderboard() {
               </thead>
               <tbody className="font-mono text-sm">
                 {[
-                  { rank: 4, id: "0x12...99A", class: "Tank", floor: 88, ind: "A" },
-                  { rank: 5, id: "0x56...FF1", class: "Mage", floor: 85, ind: "B" },
-                  { rank: 6, id: "0x44...01B", class: "Assassin", floor: 82, ind: "B" },
-                  { rank: 7, id: "0x98...33C", class: "Healer", floor: 79, ind: "C" },
-                  { rank: 8, id: "0x77...88D", class: "Sword", floor: 70, ind: "C" },
+                  { rank: 4, id: "0x12...99A", class: "Tank", floor: 8, ind: "F" },
+                  { rank: 5, id: "0x56...FF1", class: "Mage", floor: 5, ind: "G" },
+                  { rank: 6, id: "0x44...01B", class: "Assassin", floor: 4, ind: "G" },
+                  { rank: 7, id: "0x98...33C", class: "Healer", floor: 3, ind: "F" },
+                  { rank: 8, id: "0x77...88D", class: "Sword", floor: 1, ind: "F" },
                 ].map((row, i) => (
                   <tr key={i} className="border-b border-[var(--color-surface-container-highest)]/50 hover:bg-[var(--color-surface-container)] transition-colors">
                     <td className="py-4 pl-4 text-[var(--color-outline-variant)]">#{row.rank}</td>

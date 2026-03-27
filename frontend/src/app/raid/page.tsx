@@ -10,6 +10,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Transaction } from '@mysten/sui/transactions';
 import { useSignAndExecuteTransaction, useCurrentAccount, useSuiClientQuery, useSuiClient } from '@mysten/dapp-kit';
 import { useRouter } from "next/navigation"
+import Image from "next/image"
+import BossImage from "@/img/boss.jpg"
 
 const PACKAGE_ID = process.env.NEXT_PUBLIC_PACKAGE_ID;
 const BOSS_ID = process.env.NEXT_PUBLIC_BOSS_ID;
@@ -102,10 +104,14 @@ export default function RaidRoom() {
         {/* Boss Health UI */}
         <section className="w-full max-w-4xl mx-auto flex flex-col gap-2 mt-4">
           <div className="flex justify-between items-end">
-             <div>
-               <h2 className="text-4xl font-display uppercase tracking-widest text-white shadow-[0_0_10px_var(--color-error)]">The Architect</h2>
-               <span className="text-sm font-mono text-[var(--color-error)] uppercase tracking-widest">Floor 100 Boss // Supreme Grade</span>
-             </div>
+              <div>
+                <h2 className="text-4xl font-display uppercase tracking-widest text-white shadow-[0_0_10px_var(--color-error)]">
+                  {bContent?.fields?.name || "The Serpent"}
+                </h2>
+                <span className="text-sm font-mono text-[var(--color-error)] uppercase tracking-widest">
+                  Level 1 Boss // Venomous Grade
+                </span>
+              </div>
               <p className="font-mono text-xl text-[var(--color-error)] animate-pulse">HP: {currentHp.toLocaleString()} / {maxHp.toLocaleString()}</p>
           </div>
           <div className="w-full bg-[var(--color-surface-container-highest)] h-4 border border-[var(--color-error)]/50">
@@ -146,10 +152,23 @@ export default function RaidRoom() {
               <div className="absolute top-4 left-4 text-[var(--color-outline-variant)] font-mono text-xs">TARGET_LOCK: ENABLED</div>
               <div className="absolute top-4 right-4 text-[var(--color-secondary)] font-mono text-xs">{combatLog}</div>
 
-              <div className="relative">
-                 <Crosshair size={120} className="text-[var(--color-error)] opacity-20 animate-spin-slow" />
-                 <div className="absolute inset-0 flex items-center justify-center">
-                    <ShieldAlert size={48} className="text-[var(--color-error)]" />
+              <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+                 <div className="absolute inset-0 opacity-10">
+                   <Crosshair size={300} className="text-[var(--color-error)] animate-spin-slow" />
+                 </div>
+                 <div className="relative w-64 h-64 border border-[var(--color-error)]/30 shadow-[0_0_50px_var(--color-error)]/20 rotate-45 overflow-hidden">
+                    <div className="-rotate-45 w-full h-full scale-150 relative">
+                       <Image 
+                         src={BossImage} 
+                         alt="The Serpent" 
+                         fill 
+                         className="object-cover opacity-60 group-hover:opacity-100 transition-opacity" 
+                       />
+                    </div>
+                 </div>
+                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-full h-px bg-gradient-to-r from-transparent via-[var(--color-error)] to-transparent opacity-50" />
+                    <div className="h-full w-px bg-gradient-to-b from-transparent via-[var(--color-error)] to-transparent opacity-50 absolute" />
                  </div>
               </div>
            </DataPanel>

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-type Rank = "E" | "D" | "C" | "B" | "A" | "S"
+type Rank = "G" | "F" | "E" | "D" | "C" | "B" | "A" | "S"
 
 interface RankIndicatorProps {
   rank: Rank;
@@ -9,6 +9,8 @@ interface RankIndicatorProps {
 
 export function RankIndicator({ rank, className }: RankIndicatorProps) {
   const styles = {
+    G: "text-[var(--color-outline-variant)] bg-[var(--color-surface-variant)] border-[var(--color-outline)]",
+    F: "text-[var(--color-outline-variant)] bg-[var(--color-surface-variant)] border-[var(--color-outline)]",
     E: "text-[var(--color-outline-variant)] bg-[var(--color-surface-variant)] border-[var(--color-outline)]",
     D: "text-[var(--color-outline-variant)] bg-[var(--color-surface-variant)] border-[var(--color-outline)]",
     C: "text-[var(--color-primary-dim)] border-[var(--color-primary-dim)] shadow-[0_0_2px_var(--color-primary-dim)]",

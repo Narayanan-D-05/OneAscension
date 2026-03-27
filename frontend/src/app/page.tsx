@@ -12,6 +12,8 @@ import { ConnectButton, useCurrentAccount, useSuiClientQuery, useSignAndExecuteT
 import { motion, AnimatePresence } from "framer-motion"
 import { Transaction } from "@mysten/sui/transactions"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
+import IgrisImage from "@/img/igris.png"
 
 const PACKAGE_ID = process.env.NEXT_PUBLIC_PACKAGE_ID;
 
@@ -94,7 +96,7 @@ export default function Dashboard() {
                 </h2>
                 <span className="text-sm font-mono text-[var(--color-outline-variant)]">LEVEL {level} // CLASS: {hunterData ? (hunterData.fields.class_type === 0 ? "ASSASSIN" : "UNKNOWN") : "NONE"}</span>
               </div>
-              <RankIndicator rank="S" />
+              <RankIndicator rank="E" />
             </div>
 
             <div className="flex flex-col gap-3 font-mono text-sm">
@@ -167,10 +169,16 @@ export default function Dashboard() {
             </DataPanel>
 
             {/* Extracted Shadow Wrapper */}
-            <DataPanel variant="base" glowing className="min-h-[200px] flex flex-col items-center justify-center p-8 border-r-2 border-[var(--color-tertiary)]">
-               <div className="absolute top-2 right-2 text-[var(--color-outline-variant)] font-mono text-[10px]">SLOT.02 [SHADOW]</div>
-               <div className="w-16 h-16 mb-4 flex items-center justify-center border border-[var(--color-tertiary)] text-[var(--color-tertiary)] shadow-[0_0_15px_var(--color-tertiary)] animate-pulse">
-                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <DataPanel variant="base" glowing className="min-h-[200px] flex flex-col items-center justify-center p-8 border-r-2 border-[var(--color-tertiary)] overflow-hidden">
+               <div className="absolute top-2 right-2 text-[var(--color-outline-variant)] font-mono text-[10px] z-10">SLOT.02 [SHADOW]</div>
+               <div className="relative w-24 h-24 mb-4 flex items-center justify-center border border-[var(--color-tertiary)] shadow-[0_0_15px_var(--color-tertiary)]">
+                 <Image 
+                   src={IgrisImage} 
+                   alt="Igris" 
+                   fill 
+                   className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                 />
+                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-background)] to-transparent pointer-events-none" />
                </div>
                <h3 className="font-display uppercase tracking-widest text-lg text-[var(--color-tertiary)]">Igris (Blood-Red)</h3>
                <p className="text-sm font-mono text-[var(--color-on-surface-variant)] mt-2 uppercase tracking-widest">Elite Knight Grade | Max Lv</p>

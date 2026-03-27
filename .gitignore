@@ -26,6 +26,6 @@ coins.json
 test_coins.ts
 last_error.json
 
-# OS files
-.DS_Store
-Thumbs.db
+# Temporary Logs
+compile_errors.txt
+final_check.txt

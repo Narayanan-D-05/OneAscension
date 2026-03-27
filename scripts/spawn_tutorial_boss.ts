@@ -38,7 +38,7 @@ async function main() {
   tx.moveCall({
     target: `${packageId}::raid::spawn_boss`,
     arguments: [
-      tx.pure.string("Training Dummy (Weak)"),
+      tx.pure.string("The Serpent"),
       tx.pure.u64(10), // Low HP (Defeatable in 1 hit)
       tx.pure.u64(5000) // High XP reward
     ],

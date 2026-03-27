@@ -1,0 +1,14 @@
+{
+  "name": "oneascension-scripts",
+  "version": "1.0.0",
+  "scripts": {
+    "faucet": "tsx scripts/faucet.ts",
+    "deploy": "tsx scripts/deploy.ts"
+  },
+  "devDependencies": {
+    "@mysten/sui": "^2.12.0",
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

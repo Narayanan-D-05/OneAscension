@@ -1,0 +1,31 @@
+# Environment Variables
+.env
+.env.local
+backend.env
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.next/
+out/
+
+# Move / Sui
+# Ignore build artifacts from Move
+contracts/build/
+move-stdlib/build/
+sui-framework/build/
+
+# Deployment Keys & Logs
+scripts/.deploy_key.json
+*.log
+deploy_err.log
+deploy_err2.log
+coins.json
+test_coins.ts
+last_error.json
+
+# OS files
+.DS_Store
+Thumbs.db

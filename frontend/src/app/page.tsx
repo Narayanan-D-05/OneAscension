@@ -24,21 +24,19 @@ export default function Dashboard() {
   const [txLog, setTxLog] = useState<string>("System Idle...");
   
   // Natively poll the OneChain RPC for the logged-in user's Hunter object
-  const { data: ownedObjects } = useSuiClientQuery('getOwnedObjects', {
+  const { data: ownedObjects, refetch: refetchHunter } = useSuiClientQuery('getOwnedObjects', {
     owner: account?.address as string,
     filter: { StructType: `${PACKAGE_ID}::hunter::Hunter` },
     options: { showContent: true }
   }, { enabled: !!account });
 
-  // Query for the active weapon (nested dynamic field)
   const hunter = ownedObjects?.data[0]?.data;
   const hunterData = hunter?.content as any;
   const hFields = hunterData?.fields;
   const isConnected = !!account;
   const hasHunter = !!hunterData;
 
-  // Query for the active weapon (nested dynamic field)
-  const { data: weaponField } = useSuiClientQuery('getDynamicFieldObject', {
+  const { data: weaponField, refetch: refetchWeapon } = useSuiClientQuery('getDynamicFieldObject', {
     parentId: hunter?.objectId as string,
     name: { type: 'vector<u8>', value: Array.from(new TextEncoder().encode("active_weapon")) }
   }, { enabled: !!hunter?.objectId });
@@ -56,11 +54,15 @@ export default function Dashboard() {
     const tx = new Transaction();
     tx.moveCall({
       target: `${PACKAGE_ID}::hunter::awaken`,
-      arguments: [tx.pure.string("Sung Jin-Woo"), tx.pure.u8(0)], // Default Assassin
+      arguments: [tx.pure.string("Sung Jin-Woo"), tx.pure.u8(0)],
     });
     setTxLog("Broadcasting Awakening Protocol...");
     signAndExecute({ transaction: tx }, {
-      onSuccess: () => setTxLog("Identity Secured. System Initialized."),
+      onSuccess: () => {
+        setTxLog("Identity Secured. System Initialized.");
+        refetchHunter();
+        refetchWeapon();
+      },
       onError: (e) => setTxLog(`Error: ${e.message}`)
     });
   };

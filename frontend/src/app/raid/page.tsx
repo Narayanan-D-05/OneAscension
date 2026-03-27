@@ -9,6 +9,7 @@ import { useState, useEffect, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Transaction } from '@mysten/sui/transactions';
 import { useSignAndExecuteTransaction, useCurrentAccount, useSuiClientQuery, useSuiClient } from '@mysten/dapp-kit';
+import { useRouter } from "next/navigation"
 
 const PACKAGE_ID = process.env.NEXT_PUBLIC_PACKAGE_ID;
 const BOSS_ID = process.env.NEXT_PUBLIC_BOSS_ID;
@@ -27,7 +28,7 @@ export default function RaidRoom() {
   }, { enabled: !!BOSS_ID, refetchInterval: 3000 });
 
   // 2. Fetch the Player's Hunter Object
-  const { data: ownedObjects } = useSuiClientQuery('getOwnedObjects', {
+  const { data: ownedObjects, refetch: refetchHunter } = useSuiClientQuery('getOwnedObjects', {
     owner: account?.address as string,
     filter: { StructType: `${PACKAGE_ID}::hunter::Hunter` },
     options: { showContent: true }
@@ -44,8 +45,9 @@ export default function RaidRoom() {
   useEffect(() => {
     if (bContent && currentHp === 0) {
       setIsDefeated(true);
+      refetchHunter(); // Initial pick up of loot
     }
-  }, [currentHp, bContent]);
+  }, [currentHp, bContent, refetchHunter]);
 
   const executePhantomStrike = () => {
     if (!account || !hunter) return setCombatLog("ERROR: Hunter/Wallet Not Found");
@@ -64,12 +66,15 @@ export default function RaidRoom() {
       onSuccess: () => {
         setTxLog("Success: Boss Damaged!");
         refetchBoss();
+        refetchHunter();
       },
       onError: (e) => setTxLog(`Failure: ${e.message}`)
     });
   };
 
   const setTxLog = (msg: string) => setCombatLog(msg);
+
+  const router = useRouter();
 
   return (
     <main className="min-h-screen bg-[var(--color-background)] p-4 md:p-8 flex flex-col gap-8 relative overflow-hidden">
@@ -173,25 +178,35 @@ export default function RaidRoom() {
           <motion.div 
             initial={{ opacity: 0, scale: 1.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 pointer-events-none"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 pointer-events-auto"
           >
-             <div className="text-center">
-                 <motion.h1 
+             <div className="flex flex-col items-center gap-8 text-center">
+                  <motion.h1 
                     initial={{ y: 50, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.5, type: "spring" }}
                     className="text-7xl font-display font-bold text-[var(--color-error)] uppercase tracking-[0.2em] shadow-[0_0_50px_var(--color-error)]"
                   >
                     BOSS DEFEATED
-                 </motion.h1>
-                 <motion.p
+                  </motion.h1>
+                  <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
+                    transition={{ delay: 1.5 }}
+                    className="font-mono text-[var(--color-tertiary)] text-xl tracking-widest animate-pulse"
+                  >
+                    [SYSTEM_CALL]: SHADOW EXTRACTION COMPLETE...
+                  </motion.p>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 2.5 }}
-                    className="font-mono text-[var(--color-tertiary)] text-xl tracking-widest mt-8 animate-pulse"
-                 >
-                    [SYSTEM_CALL]: INITIATING SHADOW EXTRACTION PROTOCOL...
-                 </motion.p>
+                  >
+                     <HUDButton variant="primary" className="px-12 py-4 text-lg" onClick={() => router.push('/')}>
+                       TERMINATE INSTANCE // RETURN TO SYSTEM
+                     </HUDButton>
+                  </motion.div>
              </div>
           </motion.div>
         )}
